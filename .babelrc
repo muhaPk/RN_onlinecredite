@@ -1,0 +1,12 @@
+{
+    "plugins": [
+      ["module-resolver", {
+        "root": ["./src"],
+        "alias": {
+            "entities": "./src/entities",
+            "pages": "./src/pages",
+            "shared": "./src/shared"
+        }
+      }]
+    ]
+  }
