@@ -7,21 +7,19 @@ import { useForm } from "react-hook-form";
 import { H1, T, Underline } from 'shared/ui/CustomText/CustomText';
 import { Container } from 'shared/ui/Container/Container';
 import { Lang } from 'shared/lang';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SEND_OTP, VERIFY_OTP } from 'shared/api/graphql/mutations/user';
 
 
 
-const SEND_OTP = gql`
-  mutation SendOtp($phone: String!) {
-    sendOtp(phone: $phone)
-  }
-`;
-
-const VERIFY_OTP = gql`
-  mutation VerifyOtp($phone: String!, $otp: String!) {
-    verifyOtp(phone: $phone, otp: $otp)
-  }
-`;
+const saveToken = async (token: string) => {
+    try {
+        await AsyncStorage.setItem('accessToken', token);
+    } catch (error) {
+        console.log("Error saving token", error);
+    }
+};
 
 
 export const Login: FC = () => {
@@ -56,10 +54,9 @@ export const Login: FC = () => {
         const { code } = data;
         try {
             const response = await verifyOtp({ variables: { phone, otp: code } });
-            // const token = response.data.verifyOtp.accessToken;
+            const token = response.data.verifyOtp.accessToken;
 
-            response && console.log('response ' + JSON.stringify(response, null, 2))
-
+            saveToken(token)
             // Save token to AsyncStorage or Context
             // console.log("Token:", token);
         } catch (error: any) {
