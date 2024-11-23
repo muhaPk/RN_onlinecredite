@@ -25,13 +25,13 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
             />
 
             <DrawerItem
-                label={menu.registration}
-                onPress={() => props.navigation.navigate('Registration')}
+                label={menu.contacts}
+                onPress={() => props.navigation.navigate('Contacts')}
             />
 
             <DrawerItem
-                label={menu.contacts}
-                onPress={() => props.navigation.navigate('Contacts')}
+                label={menu.registration}
+                onPress={() => props.navigation.navigate('Registration')}
             />
 
             <DrawerItem

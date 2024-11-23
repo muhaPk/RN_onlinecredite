@@ -1,6 +1,5 @@
 import React from 'react';
-import { StatusBar, View } from 'react-native';
-import { Provider, useSelector } from 'react-redux';
+import { StatusBar } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -15,9 +14,6 @@ import { Contacts } from 'pages/contacts/Contacts'
 import { Login } from 'pages/login/Login';
 import {CustomDrawerContent} from './src/features/navigation/CustomDrawerContent/CustomDrawerContent'
 
-// import { Registration } from './src/pages/auth/Registration';
-// import {Auth} from './src/pages/auth/Auth';
-import { store } from './src/app/store/index';
 
 
 
@@ -27,16 +23,15 @@ const Drawer = createDrawerNavigator();
 export default function App() {
 
   return (
-    <Provider store={store}>
+        <>
           <Navigator />
           <StatusBar backgroundColor='#354052' />
-    </Provider>
+        </>
   );
 }
 
 const Navigator = () => {
 
-  // const isAuth = useSelector(state => state.users.isAuth)
   return (
     <NavigationContainer>
 

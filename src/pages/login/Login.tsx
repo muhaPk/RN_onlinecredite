@@ -11,8 +11,6 @@ import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SEND_OTP, VERIFY_OTP } from 'shared/api/graphql/mutations/user';
 
-
-
 const saveToken = async (token: string) => {
     try {
         await AsyncStorage.setItem('accessToken', token);
@@ -31,7 +29,7 @@ export const Login: FC = () => {
 
     const { form, login } = Lang()
 
-    const { control, handleSubmit, setError, formState: { errors } } = useForm();
+    const { control, handleSubmit, setError, reset, formState: { errors } } = useForm();
 
     const [sendOtp] = useMutation(SEND_OTP);
     const [verifyOtp] = useMutation(VERIFY_OTP);
@@ -44,6 +42,7 @@ export const Login: FC = () => {
             await sendOtp({ variables: { phone } });
             setPhone(phone);
             setIsOtpSent(true);
+            reset({ phone: "" })
             
         } catch (error: any) {
             console.log("Error", error.message)
@@ -57,8 +56,6 @@ export const Login: FC = () => {
             const token = response.data.verifyOtp.accessToken;
 
             saveToken(token)
-            // Save token to AsyncStorage or Context
-            // console.log("Token:", token);
         } catch (error: any) {
 
             const errorMessage = error.message || '';
@@ -115,7 +112,7 @@ export const Login: FC = () => {
                     <CustomInput 
                         control={control} 
                         errors={errors} 
-                        placeholder={form.inputs.phone} 
+                        placeholder={form.inputs.code} 
                         name="code"
                         rules={{
                             required: 'OTP code is required',

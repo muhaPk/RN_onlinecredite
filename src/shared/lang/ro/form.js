@@ -10,6 +10,7 @@ export const form = {
     inputs: {
         idnp: 'Иднп',
         phone: 'Телефон',
+        code: 'Код',
         name: '',
         surname: '',
     },

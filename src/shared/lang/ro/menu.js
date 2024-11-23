@@ -1,6 +1,6 @@
 export const menu = {
 
-    home: 'Главгая',
+    home: 'Главная',
     registration: 'Регистрация',
     contacts: 'Контакты',
     login: 'Войти',
