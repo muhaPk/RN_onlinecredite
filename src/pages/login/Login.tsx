@@ -10,14 +10,7 @@ import { Lang } from 'shared/lang';
 import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SEND_OTP, VERIFY_OTP } from 'shared/api/graphql/mutations/user';
-
-const saveToken = async (token: string) => {
-    try {
-        await AsyncStorage.setItem('accessToken', token);
-    } catch (error) {
-        console.log("Error saving token", error);
-    }
-};
+import { useNavigate } from 'shared/hooks/useNavigate';
 
 
 export const Login: FC = () => {
@@ -28,6 +21,8 @@ export const Login: FC = () => {
 
 
     const { form, login } = Lang()
+
+    const { navigateToPage } = useNavigate();
 
     const { control, handleSubmit, setError, reset, formState: { errors } } = useForm();
 
@@ -52,10 +47,17 @@ export const Login: FC = () => {
     const handleVerifyOtp = async (data: any) => {
         const { code } = data;
         try {
-            const response = await verifyOtp({ variables: { phone, otp: code } });
-            const token = response.data.verifyOtp.accessToken;
+            const response = await verifyOtp({ variables: { phone, otp: code } })
+            const { accessToken, userId } = response.data.verifyOtp
 
-            saveToken(token)
+            await AsyncStorage.setItem('accessToken', accessToken)
+            await AsyncStorage.setItem('userId', userId.toString())
+            reset({ code: "" })
+            setIsOtpSent(false);
+
+            navigateToPage("Cabinet")
+
+
         } catch (error: any) {
 
             const errorMessage = error.message || '';
@@ -121,7 +123,15 @@ export const Login: FC = () => {
             
                     <SubmitButton className='mt-4' title={form.buttons.verify} onPress={handleSubmit(handleVerifyOtp)} />
 
-                    <Button className='mt-2' title={form.buttons.login} styleColor='light' onPress={() => setIsOtpSent(false)} />
+                    <Button 
+                        className='mt-2' 
+                        title={form.buttons.login} 
+                        styleColor='light' 
+                        onPress={() => {
+                            reset({ phone: '' })
+                            setIsOtpSent(false)
+                        } } 
+                    />
                 </>
             )
         }

@@ -8,6 +8,15 @@ export const SEND_OTP = gql`
 
 export const VERIFY_OTP = gql`
   mutation VerifyOtp($phone: String!, $otp: String!) {
-    verifyOtp(phone: $phone, otp: $otp)
+    verifyOtp(phone: $phone, otp: $otp) {
+      accessToken
+      userId
+    }
+  }
+`;
+
+export const LOGOUT = gql`
+  mutation logout($id: Int, $isVerified: boolean) {
+    updateUser(id: $userId, isVerified: isVerified)
   }
 `;

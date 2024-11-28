@@ -4,16 +4,22 @@ import { CustomText, H1, H2, H3, T, Underline } from 'shared/ui/CustomText/Custo
 import { Container } from 'shared/ui/Container/Container';
 import Slider from "react-native-a11y-slider";
 import { Lang } from 'shared/lang';
+import { calculateSliderData } from '../lib/calculateSliderData';
 
   export const Calculate: FC = () => {
 
-    const [sum, setSum] = useState([4000])
-    const [period, setPeriod] = useState([3])
+      const { home } = Lang()
 
-    const handleSum = (value: number) => setSum([value])
-    const handlePeriod = (value: number) => setPeriod([value])
+    const [sum, setSum] = useState(4000)
+    const [nrMonth, setNrMonth] = useState(3)
 
-    const { home } = Lang()
+    const handleSum = (value: number) => setSum(value)
+    const handlePeriod = (value: number) => setNrMonth(value)
+
+
+    const {refound, comission, interestRate, monthlyPayment} = calculateSliderData(sum, nrMonth)
+
+
 
     return (
 
@@ -29,7 +35,7 @@ import { Lang } from 'shared/lang';
                     max={50000} 
                     increment={1000}
                     markerColor='#29aae2'
-                    values={sum} 
+                    values={[sum]} 
                     onChange={(value: number[]) => handleSum(value[0])} 
                     labelStyle={{backgroundColor: '#29aae2', borderColor: 'transparent'}}
                     labelTextStyle={{color: 'white'}}
@@ -40,7 +46,7 @@ import { Lang } from 'shared/lang';
                     max={48} 
                     increment={1}
                     markerColor='#29aae2' 
-                    values={period} 
+                    values={[nrMonth]} 
                     onChange={(value: number[]) => handlePeriod(value[0])} 
                     labelStyle={{backgroundColor: '#29aae2', borderColor: 'transparent'}}
                     labelTextStyle={{color: 'white'}}
@@ -50,27 +56,27 @@ import { Lang } from 'shared/lang';
 
                 <View className='w-full mt-4 flex flex-row justify-between'>
                     <T>{home.summaVozvrata}</T>
-                    <T>{sum} MDL</T>
+                    <T>{refound} MDL</T>
                 </View>
 
                 <View className='w-full mt-2 flex flex-row justify-between'>
                     <T>{home.summaKredita}</T>
-                    <T>{period} MDL</T>
+                    <T>{sum} MDL</T>
                 </View>
 
                 <View className='w-full mt-2 flex flex-row justify-between'>
                     <T>{home.komissionnie}</T>
-                    <T>MDL</T>
+                    <T>{comission}</T>
                 </View>
 
                 <View className='w-full mt-2 flex flex-row justify-between'>
                     <T>{home.procantnaiaStavka}</T>
-                    <T>MDL</T>
+                    <T>{interestRate}</T>
                 </View>
 
                 <View className='w-full mt-2 flex flex-row justify-between'>
                     <T>{home.ejemesiacniiPlatej}</T>
-                    <T>MDL</T>
+                    <T>{monthlyPayment}</T>
                 </View>
 
             </Container>

@@ -1,16 +1,19 @@
 import React, {FC, ReactNode} from 'react';
 import {View, ScrollView} from 'react-native'
 import { Header } from './header';
-import { useAuthCheck } from 'shared/hooks/useAuthCheck';
+import { useAuthCheckProtected } from 'shared/hooks/useAuthCheckProtected';
+import { useAuthCheckPublic } from 'shared/hooks/useAuthCheckPublic';
 
 
 type Props = {
-  children: ReactNode;
+  children: ReactNode
+  check: boolean
 };
 
-export const MainLayout: FC<Props> = ({children}: Props) => {
+export const MainLayout: FC<Props> = ({children, check}: Props) => {
 
-    useAuthCheck()
+
+    check && useAuthCheckProtected()
 
     return (
 

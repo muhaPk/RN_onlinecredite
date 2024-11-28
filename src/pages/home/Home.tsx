@@ -11,6 +11,8 @@ import { CrediteInformation } from './ui/CrediteInformation';
 
 export const Home: FC = () => {
 
+    console.log('home')
+
     return (
 
     <View className=''>

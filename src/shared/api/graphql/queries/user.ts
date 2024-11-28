@@ -1,11 +1,31 @@
 import { gql } from '@apollo/client';
 
 export const CHECK_IS_VERIFIED = gql`
-query FindUserByParams($params: UserFilterInput!) {
-  findUserByParams(params: $params) {
+query ChekIsVerified($id: Int) {
+  user(id: $id) {
     id
-    name
     isVerified
   }
 }
+`;
+
+export const GET_USER = gql`
+query ChekIsVerified($id: Int) {
+  user(id: $id) {
+    id
+    name
+    email
+    phone
+    isVerified
+  }
+}
+`;
+
+export const GET_ALL_USERS = gql`
+  query GetAllUsers {
+    users {
+      id
+      email
+    }
+  }
 `;
