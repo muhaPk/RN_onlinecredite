@@ -16,7 +16,10 @@ export const VERIFY_OTP = gql`
 `;
 
 export const LOGOUT = gql`
-  mutation logout($id: Int, $isVerified: boolean) {
-    updateUser(id: $userId, isVerified: isVerified)
+  mutation logout($id: Int!, $isVerified: Boolean!) {
+    updateUser(updateUserInput: { id: $id, isVerified: $isVerified }) {
+      id
+      isVerified
+    }
   }
 `;

@@ -11,9 +11,14 @@ import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SEND_OTP, VERIFY_OTP } from 'shared/api/graphql/mutations/user';
 import { useNavigate } from 'shared/hooks/useNavigate';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { RootStackParamList } from 'shared/ui/layout/rootStackParamList';
 
 
 export const Login: FC = () => {
+
+    const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
 
 
     const [isOtpSent, setIsOtpSent] = useState(false);
@@ -55,7 +60,7 @@ export const Login: FC = () => {
             reset({ code: "" })
             setIsOtpSent(false);
 
-            navigateToPage("Cabinet")
+            navigation.navigate('BottomTabs', { screen: 'Home' }); // wrap to hook in feature
 
 
         } catch (error: any) {
