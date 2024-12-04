@@ -4,13 +4,12 @@ import { SubmitButton } from 'shared/ui/SubmitButton/SubmitButton'
 import { LinkButton } from 'shared/ui/LinkButton/LinkButton';
 import { Button } from 'shared/ui/Button/Button';
 import { useForm } from "react-hook-form";
-import { H1, T, Underline } from 'shared/ui/CustomText/CustomText';
+import { H1, Underline } from 'shared/ui/CustomText/CustomText';
 import { Container } from 'shared/ui/Container/Container';
 import { Lang } from 'shared/lang';
 import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SEND_OTP, VERIFY_OTP } from 'shared/api/graphql/mutations/user';
-import { useNavigate } from 'shared/hooks/useNavigate';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from 'shared/ui/layout/rootStackParamList';
@@ -26,8 +25,6 @@ export const Login: FC = () => {
 
 
     const { form, login } = Lang()
-
-    const { navigateToPage } = useNavigate();
 
     const { control, handleSubmit, setError, reset, formState: { errors } } = useForm();
 

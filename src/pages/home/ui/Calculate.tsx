@@ -11,7 +11,7 @@ import { calculateSliderData } from '../lib/calculateSliderData';
     const { home } = Lang()
       
     const [sum, setSum] = useState(2000)
-    const [nrMonth, setNrMonth] = useState(3)
+    const [nrMonth, setNrMonth] = useState(1)
       
     const handleSum = (value: number) => setSum(value)
     const handlePeriod = (value: number) => setNrMonth(value)
