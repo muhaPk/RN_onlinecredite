@@ -2,7 +2,6 @@ import React, {FC, ReactNode} from 'react';
 import {View, ScrollView} from 'react-native'
 import { Header } from './header';
 import { useAuthCheckProtected } from 'shared/hooks/useAuthCheckProtected';
-import { useAuthCheckPublic } from 'shared/hooks/useAuthCheckPublic';
 
 
 type Props = {
@@ -12,16 +11,13 @@ type Props = {
 
 export const MainLayout: FC<Props> = ({children, check}: Props) => {
 
-
     check && useAuthCheckProtected()
 
     return (
 
-
       <View className='flex-1'>
 
           <Header />
-
           <ScrollView className='flex-1 bg-white'>{children}</ScrollView>
 
       </View>

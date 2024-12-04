@@ -3,6 +3,9 @@ export const home = {
     minut: '10 minute!',
     zapolnite: 'Completează aplicația și în 10 minute poți primi banii.',
 
+    viberiteSummu: 'Aleege suma',
+    mesiats: 'Luni',
+
     kalkulatorKredita: 'Калькулятор кредита',
     summaVozvrata: 'Сумма возврата',
     summaKredita: 'Сумма кредита',

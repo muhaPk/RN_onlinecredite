@@ -3,10 +3,10 @@ export const menu = {
     home: 'Главгая',
     registration: 'Регистрация',
     contacts: 'Контакты',
-    cabinet: 'Личный кабинет',
+    cabinet: 'Кабинет',
+    map: 'Карта',
     login: 'Войти',
     logout: 'Выйти',
-
-    iazik: 'язык'
+    iazik: 'Язык'
 
 }

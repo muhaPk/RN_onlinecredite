@@ -3,6 +3,9 @@ export const home = {
     minut: '10 минут!',
     zapolnite: 'Заполните заявку и уже через 10 минут вы сможете получить деньги.',
 
+    viberiteSummu: 'Выбирите сумму',
+    mesiats: 'Месяц',
+
     kalkulatorKredita: 'Калькулятор кредита',
     summaVozvrata: 'Сумма возврата',
     summaKredita: 'Сумма кредита',

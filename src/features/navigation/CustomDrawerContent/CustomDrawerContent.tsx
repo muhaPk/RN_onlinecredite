@@ -1,93 +1,63 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { T } from 'shared/ui/CustomText/CustomText';
 import { DrawerContentScrollView, DrawerItem, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { Lang } from 'shared/lang';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { useQuery } from '@apollo/client';
-import { CHECK_IS_VERIFIED } from 'shared/api/graphql/queries/user';
-import { LOGOUT } from 'shared/api/graphql/mutations/user';
+import { useLogoutHandler } from 'shared/hooks/handleLogout';
+import { useDrawerStatus } from '@react-navigation/drawer';
+import { useAuth } from 'shared/hooks/useAuth';
 
 export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
+
     
+    const isDrawerOpen = useDrawerStatus();
+    const { isVerified, loading } = useAuth();
+    const [isDrawerVerified, setIsDrawerVerified] = useState<boolean>(false);
+
     const { menu } = Lang()
-    
-    const [userId, setUserId] = useState<number | null>(null);
-    const [isVerified, setIsVerified] = useState<boolean>(false);
+    const { handleLogout } = useLogoutHandler();
 
-
-        useEffect(() => {
-            const fetchUserId = async () => {
-                const storedUserId = await AsyncStorage.getItem("userId");
-                storedUserId && setUserId(Number(storedUserId))
-            }
-            fetchUserId()
-        }, []);
-        
-
-        const handleLogout = async () => {
-            try {
-                await AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userId']);
-    
-                // const data = useQuery(LOGOUT, {
-                //     variables: { id: userId, isVerified: false }
-                // })
-                // data && console.log('handleLogout data: ' + JSON.stringify(data, null, 2))
-    
-                props.navigation.navigate('Login'); // Redirect to Login screen
-    
-    
-            } catch (error) {
-                console.error('Error during logout:', error);
-            }
-          };
+    useEffect(() => {
+        if (!loading) {
+            setIsDrawerVerified(isDrawerOpen === "open" && isVerified);
+          }
+      }, [isDrawerOpen, isVerified, loading]);
 
 
 
-        const { loading, error } = useQuery(CHECK_IS_VERIFIED, {
-                variables: { id: userId },
-                skip: !userId,
-                onCompleted: data => data?.user && setIsVerified(data.user.isVerified)
-        });
-
-        
-        
-        if (loading) {
-            console.log("Loading...");
-            return null; // or a loading indicator
-        }
-        
-        if (error) {
-            console.error("GraphQL Error:", error);
-
-            if (error.message == 'Unauthorized') {
-            //     handleLogout()
-                AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'userId']);
-            }
-            
-
-        }
-
-
-
-
+    if (loading) {
+        return <ActivityIndicator size="large" color="#29aae2" />;
+    }
 
 
     return (
         <DrawerContentScrollView {...props}>
 
-            <View className='bg-[#29aae2] -mt-1'>
-                <View className='px-4 py-2 flex-row justify-between'>
-                    <T className='color-white'>Язык:</T>
-                    <T className='color-white'>ru / ro</T>
-                </View>
-            </View>
+
 
             <DrawerItem
                 label={menu.home}
-                onPress={() => props.navigation.navigate('Home')}
+                onPress={() => props.navigation.navigate('BottomTabs', { screen: 'Home' })}
             />
+
+            {
+                !isDrawerVerified && 
+                <DrawerItem
+                label={menu.registration}
+                onPress={() => props.navigation.navigate('Registration')}
+                />
+            }
+            {
+                !isDrawerVerified && 
+                <DrawerItem
+                label={menu.login}
+                onPress={() => props.navigation.navigate('Login')}
+                />
+            }
+
+            <View className='px-5 py-2 flex-row justify-between'>
+                <T className=''>{menu.iazik}</T>
+            </View>
 
             <DrawerItem
                 label={menu.contacts}
@@ -95,31 +65,29 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
             />
 
             {
-                !isVerified && 
-                <DrawerItem
-                    label={menu.registration}
-                    onPress={() => props.navigation.navigate('Registration')}
-                />
-            }
-            {
-                !isVerified && 
-                <DrawerItem
-                    label={menu.login}
-                    onPress={() => props.navigation.navigate('Login')}
-                />
-            }
-            {
-                isVerified && 
-                <DrawerItem
+                isDrawerVerified && 
+                    <DrawerItem
                     label={menu.cabinet}
-                    onPress={() => props.navigation.navigate('Cabinet')}
+                    onPress={() => props.navigation.navigate('BottomTabs', { screen: 'Cabinet' })}
                 />
             }
+
+
             {
-                isVerified && 
+                <DrawerItem
+                    label={menu.map}
+                    onPress={() => props.navigation.navigate('Map')}
+                />
+            }
+
+            {
+                isDrawerVerified && 
                 <DrawerItem
                     label={menu.logout}
-                    onPress={handleLogout}
+                    onPress={() => {
+                        setIsDrawerVerified(false)
+                        handleLogout()
+                    }}
                 />
             }
 

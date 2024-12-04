@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import { View, StyleSheet, Text } from 'react-native'
 import { Steps } from './ui/Steps';
 import { Options } from './ui/Options';
@@ -8,10 +8,7 @@ import { Intro } from './ui/Intro';
 import { ImageWrapper } from './ui/ImageWrapper';
 import { CrediteInformation } from './ui/CrediteInformation';
 
-
 export const Home: FC = () => {
-
-    console.log('home')
 
     return (
 

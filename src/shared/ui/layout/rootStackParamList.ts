@@ -5,4 +5,6 @@ export type RootStackParamList = {
   Contacts: undefined;
   Cabinet: undefined;
   Login: undefined;
+  Map: undefined;
+  BottomTabs: { screen: 'Home' | 'Cabinet' };
 };
