@@ -22,6 +22,8 @@ export const useAuthCheckProtected = () => {
         return;
       }
 
+      console.log(accessToken)
+
       if (isTokenExpired(accessToken)) {
         console.warn("Access token expired, attempting to refresh...");
         if (refreshToken) {

@@ -10,13 +10,14 @@ query ChekIsVerified($id: Int) {
 `;
 
 export const GET_USER = gql`
-query ChekIsVerified($id: Int) {
+query GetUser($id: Int) {
   user(id: $id) {
     id
     name
+    surname
     email
     phone
-    isVerified
+    idPassport
   }
 }
 `;
@@ -29,3 +30,4 @@ export const GET_ALL_USERS = gql`
     }
   }
 `;
+

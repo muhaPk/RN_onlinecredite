@@ -50,9 +50,15 @@ export const Login: FC = () => {
         const { code } = data;
         try {
             const response = await verifyOtp({ variables: { phone, otp: code } })
-            const { accessToken, userId } = response.data.verifyOtp
+            const { accessToken, refreshToken, userId } = response.data.verifyOtp
+
+            if (!accessToken || !refreshToken) {
+                console.error('Missing tokens in response:')
+                return
+              }
 
             await AsyncStorage.setItem('accessToken', accessToken)
+            await AsyncStorage.setItem('refreshToken', refreshToken)
             await AsyncStorage.setItem('userId', userId.toString())
             reset({ code: "" })
             setIsOtpSent(false);

@@ -6,21 +6,38 @@ import { useForm } from "react-hook-form";
 import { H1, Underline } from 'shared/ui/CustomText/CustomText';
 import { Container } from 'shared/ui/Container/Container';
 import { Lang } from 'shared/lang';
+import { CREATE_USER } from 'shared/api/graphql/mutations/user';
+import { useMutation } from '@apollo/client';
 
 export const Registration: FC = () => {
 
     const { form, registration } = Lang()
 
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const [createUser] = useMutation(CREATE_USER);
+
+    const { control, handleSubmit, reset, formState: { errors } } = useForm({
         defaultValues: {
+            id_passport: '',
             email: '',
-            password: ''
+            phone: '',
+            name: '',
+            surname: '',
         }
     });
 
 
-    const onSubmit = (data: any) => {
-        console.log('submit')
+    const onSubmit = async (data: any) => {
+        const { id_passport, email, phone, name, surname } = data;
+
+        try {
+            await createUser({ variables: { id_passport, email, phone, name, surname } });
+            reset({ id_passport: '', phone: '', name: '', surname: '' })
+            
+        } catch (error: any) {
+            error && console.log('error ' + JSON.stringify(error, null, 2))
+            console.log("Error", error.message)
+        }
+
     };
 
 
@@ -32,6 +49,7 @@ export const Registration: FC = () => {
         <H1 className='mx-auto mt-6'>{registration.registratia}</H1>
         <Underline />
 
+        <CustomInput control={control} errors={errors} placeholder={form.inputs.email} name="email" />
         <CustomInput control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" />
         <CustomInput control={control} errors={errors} placeholder={form.inputs.phone} name="phone" />
         <CustomInput control={control} errors={errors} placeholder={form.inputs.name} name="name" />

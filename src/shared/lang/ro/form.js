@@ -4,15 +4,17 @@ export const form = {
         fill: 'Completati',
         registration: 'Регистрация',
         login: 'Войти',
+        update: 'Обновить',
         verify: 'Верификация',
     },
 
     inputs: {
         idnp: 'Иднп',
+        email: 'E-mail',
         phone: 'Телефон',
         code: 'Код',
-        name: '',
-        surname: '',
+        name: 'Имя',
+        surname: 'Фамилия',
     },
 
     validation: {
