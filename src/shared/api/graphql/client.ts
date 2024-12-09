@@ -5,6 +5,7 @@ import { onError } from '@apollo/client/link/error';
 import { refreshAccessToken } from 'shared/lib/refreshAccessToken';
 import { isTokenExpired } from 'shared/lib/isTokenExpired';
 
+
 // Create the HTTP Link
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URI || 'http://10.0.2.2:4200/graphql',
@@ -77,7 +78,6 @@ const errorLink = onError(({ networkError, graphQLErrors, operation, forward }) 
               }
             })();
           });
-
         }
       }
     }
