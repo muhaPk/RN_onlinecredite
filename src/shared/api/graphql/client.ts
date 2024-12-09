@@ -1,7 +1,8 @@
-import { ApolloClient, InMemoryCache, createHttpLink, Observable } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink, Observable, ApolloLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onError } from '@apollo/client/link/error';
+import { refreshAccessToken } from 'shared/lib/refreshAccessToken';
 
 // Create the HTTP Link
 const httpLink = createHttpLink({
@@ -22,6 +23,8 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (graphQLErrors) {
       for (const error of graphQLErrors) {
         if (error.extensions?.code === 'UNAUTHENTICATED') {
+
+          console.log('error.extensions?.code === UNAUTHENTICATED')
           return new Observable(observer => {
             (async () => {
               try {
@@ -32,27 +35,21 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
                 }
   
                 // Request a new access token
-                const response = await fetch('http://10.0.2.2:4200/auth/refresh', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ refreshToken }),
-                });
-  
-                if (!response.ok) {
-                  throw new Error('Failed to refresh token');
+                const response = await refreshAccessToken(refreshToken);
+                if (!response) {
+                  throw new Error('Failed to refresh access token');
                 }
   
-                const { accessToken, refreshToken: newRefreshToken } = await response.json();
-  
                 // Store new tokens
-                await AsyncStorage.setItem('accessToken', accessToken);
-                await AsyncStorage.setItem('refreshToken', newRefreshToken);
+                await AsyncStorage.setItem('accessToken', response.accessToken);
+                await AsyncStorage.setItem('refreshToken', response.refreshToken);
+                console.log("Access token successfully refreshed.");
   
                 // Update the failed operation with the new access token
                 operation.setContext(({ headers = {} }) => ({
                   headers: {
                     ...headers,
-                    Authorization: `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${response.accessToken}`,
                   },
                 }));
   
@@ -68,6 +65,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
               }
             })();
           });
+          
         }
       }
     }
@@ -75,6 +73,6 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 
 // Apollo Client Instance
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: ApolloLink.from([authLink, errorLink, httpLink]),
   cache: new InMemoryCache(),
 });

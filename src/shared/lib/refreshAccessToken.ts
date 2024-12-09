@@ -6,8 +6,8 @@ export const refreshAccessToken = async (refreshToken: string) => {
     if (response.status === 200) {
       return {
         accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken, // Only if your backend issues a new refresh token
-      };
+        refreshToken: response.data.refreshToken,
+      }
     } else {
       console.warn("Failed to refresh token: Non-200 response.");
       return null;
