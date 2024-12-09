@@ -14,7 +14,10 @@ export const useAuth = () => {
       setIsVerified(data?.user?.isVerified || false);
     },
     onError: (error) => {
-      console.error("Error verifying user:", error);
+
+      const unauthorizedError = error.graphQLErrors.find( err => err.message === "Unauthorized")
+      unauthorizedError && AsyncStorage.multiRemove(["accessToken", "refreshToken", "userId"])
+      console.log('forced logout successfull')
     },
   });
 
@@ -33,9 +36,10 @@ export const useAuth = () => {
   }, []);
 
   useEffect(() => {
-    if (userId) {
-      triggerQuery({ variables: { id: userId } });
-    }
+
+    if (!userId) return;
+    triggerQuery({ variables: { id: userId } });
+    
   }, [userId, triggerQuery]);
 
   return { isVerified, loading };

@@ -13,9 +13,10 @@ type FormData = {
     type?: string
     className?: string
     rules?: any
+    isDisabled?: boolean
 }
 
-export const CustomInput: FC<FormData> = ({control, errors, placeholder, title, name, rules, type = 'input', ...rest}: FormData) => {
+export const CustomInput: FC<FormData> = ({control, errors, placeholder, title, name, rules, type = 'input', isDisabled = false, ...rest}: FormData) => {
 
     return (
 
@@ -31,7 +32,7 @@ export const CustomInput: FC<FormData> = ({control, errors, placeholder, title, 
 
                             {
                                 title && 
-                                <Text className="block text-xs">
+                                <Text className="block text-xs mb-1 -mt-1">
                                     {title}
                                 </Text>
                             }
@@ -54,6 +55,7 @@ export const CustomInput: FC<FormData> = ({control, errors, placeholder, title, 
                                 placeholderTextColor='#aaa'
                                 underlineColorAndroid='transparent'
                                 className='px-3 py-1 border border-sky-500 bg-[#f1f5f9] rounded'
+                                editable={!isDisabled}
                                 {...rest}
                             />
 

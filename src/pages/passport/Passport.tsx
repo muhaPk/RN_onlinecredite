@@ -65,20 +65,20 @@ export const Cabinet: FC = () => {
 
         <Container>
 
-            <H1 className='mx-auto mt-6'>Личный кабинет</H1>
+            <H1 className='mx-auto mt-6'>Паспортные данные</H1>
             <Underline />
 
 
             <H3 className='mt-8 mb-4 mx-auto center'>Мои данные</H3>
 
 
-            <CustomInput control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" title={form.label.idnp} />
+            {/* <CustomInput control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" title={form.label.idnp} />
             <CustomInput control={control} errors={errors} placeholder={form.inputs.phone} name="phone" title={form.label.phone} isDisabled={true} />
             <CustomInput control={control} errors={errors} placeholder={form.inputs.email} name="email" title={form.label.email} isDisabled={true} />
             <CustomInput control={control} errors={errors} placeholder={form.inputs.name} name="name" title={form.label.name} />
             <CustomInput control={control} errors={errors} placeholder={form.inputs.surname} name="surname" title={form.label.surName} />
 
-            <SubmitButton className='mt-4' title={form.buttons.update} onPress={handleSubmit(updateData)} />
+            <SubmitButton className='mt-4' title={form.buttons.update} onPress={handleSubmit(updateData)} /> */}
 
         </Container>
 

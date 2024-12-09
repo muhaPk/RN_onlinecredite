@@ -59,19 +59,19 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
                 <T className=''>{menu.iazik}</T>
             </View>
 
+            {
+                isDrawerVerified && 
+                <DrawerItem
+                label={menu.cabinet}
+                onPress={() => props.navigation.navigate('BottomTabs', { screen: 'Cabinet' })}
+                />
+            }
+
+
             <DrawerItem
                 label={menu.contacts}
                 onPress={() => props.navigation.navigate('Contacts')}
             />
-
-            {
-                isDrawerVerified && 
-                    <DrawerItem
-                    label={menu.cabinet}
-                    onPress={() => props.navigation.navigate('BottomTabs', { screen: 'Cabinet' })}
-                />
-            }
-
 
             {
                 <DrawerItem

@@ -12,7 +12,7 @@ type Props = {
 
 export const SubmitButton = ({title, onPress, colorStyle = 'dark', ...rest}: Props) => {
 
-    const baseViewStyle = 'w-min rounded px-6 py-2.5 items-center self-start mx-auto';
+    const baseViewStyle = 'w-min rounded px-6 py-2.5 items-center self-start mx-auto w-full';
     const baseTextStyle = 'font-bold';
 
 

@@ -4,7 +4,7 @@ import { SubmitButton } from 'shared/ui/SubmitButton/SubmitButton'
 import { LinkButton } from 'shared/ui/LinkButton/LinkButton';
 import { Button } from 'shared/ui/Button/Button';
 import { useForm } from "react-hook-form";
-import { H1, Underline } from 'shared/ui/CustomText/CustomText';
+import { H1, T, T2, Underline } from 'shared/ui/CustomText/CustomText';
 import { Container } from 'shared/ui/Container/Container';
 import { Lang } from 'shared/lang';
 import { useMutation } from '@apollo/client';
@@ -91,14 +91,20 @@ export const Login: FC = () => {
         <H1 className='mx-auto mt-6'>{login.vhod}</H1>
         <Underline />
 
+        
+
         {
             !isOtpSent ? (
                 <>
+
+                    <T2 className='mb-3 text-gray-500'>{form.description.phone}</T2>
+
                     <CustomInput 
                         control={control} 
                         errors={errors} 
                         placeholder={form.inputs.phone} 
                         name="phone"
+                        title={form.label.phone}
                         rules={{
                             pattern: {
                               value: /[^A-Za-z]+$/,
@@ -119,11 +125,15 @@ export const Login: FC = () => {
                 </>
             ) : (
                 <>
+
+                    <T2 className='mb-3 text-gray-500'>{form.description.smsCode}</T2>
+
                     <CustomInput 
                         control={control} 
                         errors={errors} 
                         placeholder={form.inputs.code} 
                         name="code"
+                        title={form.label.otpCode}
                         rules={{
                             required: 'OTP code is required',
                         }}

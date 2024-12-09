@@ -17,6 +17,20 @@ export const form = {
         surname: 'Фамилия',
     },
 
+    label: {
+        email: 'Ваш e-mail',
+        idnp: 'Ваш идентификационный номер паспорта',
+        phone: 'Ваш номер телефона',
+        name: 'Ваше имя',
+        surName: 'Ваша фамилия',
+        otpCode: 'Проверочный код',
+    },
+
+    description: {
+        phone: 'Пожалуйста, введите ваш номер мобильного телефона.',
+        smsCode: 'Пожалуйста, введите ваш проверочный смс код.',
+    },
+
     validation: {
         required: 'Required field*',
         requiredInOneWord: 'Required*',
