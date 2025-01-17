@@ -6,6 +6,7 @@ export const menu = {
     cabinet: 'Кабинет',
     passport: 'Пасспорт',
     map: 'Карта',
+    routes: 'Маршруты',
     login: 'Войти',
     logout: 'Выйти',
     iazik: 'Язык'

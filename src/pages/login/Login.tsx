@@ -1,4 +1,5 @@
 import React, {FC, useState} from 'react';
+import { Image, View } from 'react-native';
 import { CustomInput } from 'shared/ui/input/input'
 import { SubmitButton } from 'shared/ui/SubmitButton/SubmitButton'
 import { LinkButton } from 'shared/ui/LinkButton/LinkButton';
@@ -13,6 +14,7 @@ import { SEND_OTP, VERIFY_OTP } from 'shared/api/graphql/mutations/user';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from 'shared/ui/layout/rootStackParamList';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 
 export const Login: FC = () => {
@@ -32,13 +34,11 @@ export const Login: FC = () => {
     const [verifyOtp] = useMutation(VERIFY_OTP);
 
 
-
     const handleSendOtp = async (data: any) => {
 
         const { phone } = data;
         try {
             const response = await sendOtp({ variables: { phone } });
-            console.log('response ' + response.data)
 
             setPhone(phone);
             setIsOtpSent(true);
@@ -90,21 +90,34 @@ export const Login: FC = () => {
 
     return (
 
-    <Container>
 
 
-        <H1 className='mx-auto mt-6'>{login.vhod}</H1>
-        <Underline />
+    <Container className='pt-20'>
+
 
         
 
         {
             !isOtpSent ? (
+                // login / register
                 <>
+        
+                    <View className='flex-row justify-center'>
+                        <IconMaterialIcons 
+                            name="supervised-user-circle" 
+                            size={90} 
+                            color="#29aae2"
+                        />
+                    </View>
 
-                    <T2 className='mb-3 text-gray-500'>{form.description.phone}</T2>
+                    <H1 className='mx-auto mt-6'>{login.vhod}</H1>
+                    <Underline className='mb-10' />
+
+                    {/* <T2 className='mb-3 text-gray-500'>{form.description.phone}</T2> */}
 
                     <CustomInput 
+                        icon
+                        iconName='login'
                         control={control} 
                         errors={errors} 
                         placeholder={form.inputs.phone} 
@@ -127,12 +140,24 @@ export const Login: FC = () => {
                     <SubmitButton className='mt-4' title={form.buttons.login} onPress={handleSubmit(handleSendOtp)} fullWidth />
                     
 
-                    <LinkButton className='mt-2' page='Registration' title={form.buttons.registration} styleColor='light' />
+                    <LinkButton className='mt-2' page='Registration' title={form.buttons.registration} colorStyle='light' />
                 </>
             ) : (
+                // verify otp code
                 <>
 
-                    <T2 className='mb-3 text-gray-500'>{form.description.smsCode}</T2>
+                    <View className='flex-row justify-center'>
+                        <IconMaterialIcons
+                            name="sms" 
+                            size={90} 
+                            color="#29aae2"
+                        />
+                    </View>
+
+                    <H1 className='mx-auto mt-6'>Верификация</H1>
+                    <Underline className='mb-10' />
+
+                    {/* <T2 className='mb-3 text-gray-500'>{form.description.smsCode}</T2> */}
 
                     <CustomInput 
                         control={control} 
@@ -150,7 +175,7 @@ export const Login: FC = () => {
                     <Button 
                         className='mt-2' 
                         title={form.buttons.login} 
-                        styleColor='light' 
+                        colorStyle='light' 
                         onPress={() => {
                             reset({ phone: '' })
                             setIsOtpSent(false)

@@ -1,14 +1,14 @@
 import LocalizedStrings from 'react-native-localization';
 
 import { ru } from './ru';
-import { ro } from './ro';
+import { en } from './en';
 
 let strings = new LocalizedStrings({
     ru: {
         ...ru,
     },
-    ro: {
-        ...ro,
+    en: {
+        ...en,
     },
 })
 
@@ -17,7 +17,7 @@ export const Lang = () => {
     // to get the current device interface language
     // strings.getInterfaceLanguage()
 
-    strings.setLanguage('ru')
+    strings.setLanguage('en')
 
     return strings;
 }

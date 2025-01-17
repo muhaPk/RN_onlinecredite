@@ -13,7 +13,7 @@ export const refreshAccessToken = async (refreshToken: string) => {
       return null;
     }
   } catch (error) {
-    console.error("Error refreshing access token: ", error);
+    console.log('Error refreshing access token: ' + JSON.stringify(error, null, 2))
     return null;
   }
 };

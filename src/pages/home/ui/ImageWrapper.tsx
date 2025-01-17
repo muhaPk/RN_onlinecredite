@@ -20,8 +20,6 @@ import { Lang } from 'shared/lang';
                 <Vector />
             </View>
             <View className='p-6 mb-4'>
-                <H3 className='text-white mb-4'>[Детальная информация по кредиту]</H3>
-                <H3 className='text-white mb-4'>[Преддоговоргая информация]</H3>
                 <T className='text-white'>{home.kreditiMogut}</T>
             </View>
 

@@ -6,12 +6,12 @@ import { useAuthCheckProtected } from 'shared/hooks/useAuthCheckProtected';
 
 type Props = {
   children: ReactNode
-  check: boolean
+  checkProtected: boolean
 };
 
-export const MainLayout: FC<Props> = ({children, check}: Props) => {
+export const MainLayout: FC<Props> = ({children, checkProtected}: Props) => {
 
-    check && useAuthCheckProtected()
+  checkProtected && useAuthCheckProtected()
 
     return (
 

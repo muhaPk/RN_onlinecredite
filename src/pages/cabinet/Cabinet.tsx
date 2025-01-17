@@ -9,12 +9,16 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER } from 'shared/api/graphql/queries/user';
 import { UPDATE_USER } from 'shared/api/graphql/mutations/user';
 import { useGetId } from 'shared/hooks/useGetId';
+import { useAuth } from 'shared/hooks/useAuth';
 
 export const Cabinet: FC = () => {
 
     const { form } = Lang()
 
     const userId = useGetId()
+    const { isVerified } = useAuth();
+
+    console.log('Cabinet: is - ' + isVerified)
 
     const [updateUser] = useMutation(UPDATE_USER);
 
@@ -69,14 +73,11 @@ export const Cabinet: FC = () => {
             <Underline />
 
 
-            <H3 className='mt-8 mb-4 mx-auto center'>Мои данные</H3>
-
-
-            <CustomInput control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" title={form.label.idnp} />
-            <CustomInput control={control} errors={errors} placeholder={form.inputs.phone} name="phone" title={form.label.phone} isDisabled={true} />
-            <CustomInput control={control} errors={errors} placeholder={form.inputs.email} name="email" title={form.label.email} isDisabled={true} />
-            <CustomInput control={control} errors={errors} placeholder={form.inputs.name} name="name" title={form.label.name} />
-            <CustomInput control={control} errors={errors} placeholder={form.inputs.surname} name="surname" title={form.label.surName} />
+            <CustomInput icon iconName='vcard' control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" />
+            <CustomInput icon iconName='phone-alt' iconSize={20} control={control} errors={errors} placeholder={form.inputs.phone} name="phone" isDisabled={true} />
+            <CustomInput icon iconName='email' control={control} errors={errors} placeholder={form.inputs.email} name="email" isDisabled={true} />
+            <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.name} name="name" />
+            <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.surname} name="surname" />
 
             <SubmitButton className='mt-4' title={form.buttons.update} onPress={handleSubmit(updateData)} />
 

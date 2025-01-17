@@ -7,14 +7,14 @@ export const useAuth = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [isVerified, setIsVerified] = useState<boolean>(false);
 
-  // console.log('useAuth: ' + userId + ': ' + isVerified)
+  console.log('useAuth: id [' + userId + '] is - ' + isVerified)
 
   const [triggerQuery, { loading }] = useLazyQuery(CHECK_IS_VERIFIED, {
     onCompleted: (data) => {
       setIsVerified(data?.user?.isVerified || false);
     },
     onError: (error) => {
-      error && console.log('error ' + JSON.stringify(error, null, 2))
+      error && console.log('useAuth: Error in query ' + JSON.stringify(error, null, 2))
       AsyncStorage.multiRemove(["accessToken", "refreshToken", "userId"])
       console.log('useAuth: forced logout successfull')
     },
@@ -35,10 +35,8 @@ export const useAuth = () => {
   }, []);
 
   useEffect(() => {
-
     if (!userId) return;
     triggerQuery({ variables: { id: userId } });
-    
   }, [userId, triggerQuery]);
 
   return { isVerified, loading };

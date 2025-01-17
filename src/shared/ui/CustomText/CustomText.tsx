@@ -11,9 +11,9 @@ export const CustomText = ({ children, type = 'h1', ...rest }: Props) => {
 
 
     const classTypes = {
-        h1: 'text-[#29aae2] font-bold text-xl',
-        h2: 'text-[#29aae2] font-bold text-lg',
-        h3: 'text-[#333] font-bold text-base',
+        h1: 'font-display text-[#29aae2] font-bold text-xl',
+        h2: 'font-display text-[#29aae2] font-bold text-lg',
+        h3: 'font-display text-[#333] font-bold text-base',
     }
 
     return (
@@ -26,7 +26,7 @@ export const CustomText = ({ children, type = 'h1', ...rest }: Props) => {
 export const H1 = ({ children, ...rest }: Props) => {
     return (
 
-        <Text className='text-[#29aae2] font-bold text-xl' {...rest}>{children}</Text>
+        <Text className='font-display text-[#29aae2] font-bold text-xl' {...rest}>{children}</Text>
 
     )
 }
@@ -34,7 +34,7 @@ export const H1 = ({ children, ...rest }: Props) => {
 export const H2 = ({ children, ...rest }: Props) => {
     return (
 
-        <Text className='text-[#29aae2] font-bold text-lg' {...rest}>{children}</Text>
+        <Text className='font-display text-[#29aae2] font-bold text-lg' {...rest}>{children}</Text>
 
     )
 }
@@ -42,14 +42,14 @@ export const H2 = ({ children, ...rest }: Props) => {
 export const H3 = ({ children, ...rest }: Props) => {
     return (
 
-        <Text className='text-[#333] font-bold text-base' {...rest}>{children}</Text>
+        <Text className='font-display text-[#333] font-bold text-base' {...rest}>{children}</Text>
 
     )
 }
 
 export const T = ({ children, ...rest }: Props) => {
     return (
-      <Text className={'text-gray-600 text-base pr-2'} {...rest}>
+      <Text className={'font-display text-gray-600 text-base pr-2'} {...rest}>
         {children}
       </Text>
     );
@@ -57,7 +57,7 @@ export const T = ({ children, ...rest }: Props) => {
 
 export const T2 = ({ children, ...rest }: Props) => {
     return (
-      <Text className={'text-gray-600 text-sm pr-2'} {...rest}>
+      <Text className={'font-display text-gray-600 text-sm pr-2'} {...rest}>
         {children}
       </Text>
     );

@@ -49,14 +49,14 @@ export const Registration: FC = () => {
         <H1 className='mx-auto mt-6'>{registration.registratia}</H1>
         <Underline />
 
-        <CustomInput control={control} errors={errors} placeholder={form.inputs.email} name="email" title={form.label.email} />
-        <CustomInput control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" title={form.label.idnp} />
-        <CustomInput control={control} errors={errors} placeholder={form.inputs.phone} name="phone" title={form.label.phone} />
-        <CustomInput control={control} errors={errors} placeholder={form.inputs.name} name="name" title={form.label.name} />
-        <CustomInput control={control} errors={errors} placeholder={form.inputs.surname} name="surname" title={form.label.surName} />
+        <CustomInput icon iconName='email' control={control} errors={errors} placeholder={form.inputs.email} name="email" />
+        <CustomInput icon iconName='vcard' control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" />
+        <CustomInput icon iconName='phone-alt' iconSize={20} control={control} errors={errors} placeholder={form.inputs.phone} name="phone" />
+        <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.name} name="name" />
+        <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.surname} name="surname" />
 
-        <SubmitButton className='mt-4' title={form.buttons.registration} onPress={handleSubmit(onSubmit)} />
-        <LinkButton className='mt-2' page='Login' title={form.buttons.login} styleColor='light' />
+        <SubmitButton className='mt-4' title={form.buttons.registration} onPress={handleSubmit(onSubmit)} fullWidth />
+        <LinkButton className='mt-2' page='Login' title={form.buttons.login} colorStyle='light' />
 
         
     </Container>

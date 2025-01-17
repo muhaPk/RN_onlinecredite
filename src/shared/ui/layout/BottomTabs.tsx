@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Home } from 'pages/home/Home';
 import { Cabinet } from 'pages/cabinet/Cabinet';
+import { Map } from 'pages/map/Map';
 import { MainLayout } from './mainLayout';
 
 
@@ -27,7 +28,7 @@ export const BottomTabs = () => {
 
     <Tab.Screen name="Home" options={{headerShown: false }}>
         {() => (
-          <MainLayout check={false}>
+          <MainLayout checkProtected={false}>
             <Home />
           </MainLayout>
         )}
@@ -35,11 +36,13 @@ export const BottomTabs = () => {
 
       <Tab.Screen name="Cabinet" options={{headerShown: false }}>
         {() => (
-          <MainLayout check={true}>
+          <MainLayout checkProtected={true}>
             <Cabinet />
           </MainLayout>
         )}
       </Tab.Screen>
+
+
 
     </Tab.Navigator>
   );
