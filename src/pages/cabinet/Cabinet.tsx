@@ -56,33 +56,33 @@ export const Cabinet: FC = () => {
     const updateData = async (data: any) => {
         const { id_passport, email, phone, name, surname } = data;
         try {
-            const res = await updateUser({ variables: { id: userId, id_passport, email, phone, name, surname } });
-            res && console.log('res ' + JSON.stringify(res, null, 2))
+            await updateUser({ variables: { id: userId, id_passport, email, phone, name, surname } });
             
         } catch (error: any) {
             error && console.log('error ' + JSON.stringify(error, null, 2))
             console.log("Error", error.message)
         }
     };
+    
 
     return (
 
         <Container>
 
+
             <H1 className='mx-auto mt-6'>Личный кабинет</H1>
             <Underline />
 
 
-            <CustomInput icon iconName='vcard' control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" />
-            <CustomInput icon iconName='phone-alt' iconSize={20} control={control} errors={errors} placeholder={form.inputs.phone} name="phone" isDisabled={true} />
-            <CustomInput icon iconName='email' control={control} errors={errors} placeholder={form.inputs.email} name="email" isDisabled={true} />
+            <CustomInput icon iconName='vcard' control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" isDisabled />
+            <CustomInput icon iconName='phone-alt' iconSize={20} control={control} errors={errors} placeholder={form.inputs.phone} name="phone" isDisabled />
+            <CustomInput icon iconName='email' control={control} errors={errors} placeholder={form.inputs.email} name="email" isDisabled />
             <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.name} name="name" />
             <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.surname} name="surname" />
 
             <SubmitButton className='mt-4' title={form.buttons.update} onPress={handleSubmit(updateData)} />
 
         </Container>
-
 
     );
 }

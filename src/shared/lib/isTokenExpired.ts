@@ -5,7 +5,7 @@ export const isTokenExpired = (token: string) => {
       const { exp } = jwtDecode<{ exp: number }>(token);
       const currentTime = Math.floor(Date.now() / 1000);
 
-      console.log(`token time left: ${exp - currentTime}`);
+      console.log(`token time left: [${exp - currentTime}]`);
 
       return exp < currentTime;
     } catch {
