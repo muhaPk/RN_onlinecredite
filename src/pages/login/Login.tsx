@@ -122,7 +122,6 @@ export const Login: FC = () => {
                         errors={errors} 
                         placeholder={form.inputs.phone} 
                         name="phone"
-                        title={form.label.phone}
                         rules={{
                             pattern: {
                               value: /[^A-Za-z]+$/,

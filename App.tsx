@@ -2,9 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import { StatusBar } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
 import { MainLayout } from 'shared/ui/layout/mainLayout';
-
 import { Home } from 'pages/home/Home';
 import { Settings } from 'pages/settings/Settings';
 import { Registration } from 'pages/registration/Registration'
@@ -19,12 +17,13 @@ import { BottomTabs } from 'shared/ui/layout/BottomTabs';
 import { useAuth } from 'shared/hooks/useAuth';
 
 import { NavigationContainerRef } from '@react-navigation/native';
-
+import { useLanguageEffect } from 'shared/hooks/useLanguageEffect';
 
 const Drawer = createDrawerNavigator();
 
 
 export default function App() {
+  useLanguageEffect()
 
   return (
         <>
@@ -38,7 +37,7 @@ const Navigator = () => {
 
   const { isVerified } = useAuth()
 
-  console.log('App: isVerified ' + isVerified)
+  // console.log('App: isVerified ' + isVerified)
   
   const navigationRef = useRef<NavigationContainerRef>(null)
 

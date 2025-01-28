@@ -10,10 +10,11 @@ import { GET_USER } from 'shared/api/graphql/queries/user';
 import { UPDATE_USER } from 'shared/api/graphql/mutations/user';
 import { useGetId } from 'shared/hooks/useGetId';
 import { useAuth } from 'shared/hooks/useAuth';
+import { View, Image } from 'react-native';
 
 export const Cabinet: FC = () => {
 
-    const { form } = Lang()
+    const { form, cabinet } = Lang()
 
     const userId = useGetId()
     const { isVerified } = useAuth();
@@ -70,9 +71,13 @@ export const Cabinet: FC = () => {
         <Container>
 
 
-            <H1 className='mx-auto mt-6'>Личный кабинет</H1>
-            <Underline />
+            <H1 className='mx-auto'>{cabinet.title}</H1>
+            <T2 className='mx-auto mt-1 mb-8 text-[#999]'>{cabinet.description}</T2>
 
+            <View className="relative rounded-full w-20 h-20 mx-auto bg-red-50">
+              <Image source={require('../../shared/assets/user-01.png')} alt="User" className='w-20 max-h-20' />
+              <View className="absolute rounded-full border-white bg-[#219653] dark:border-black right-0 top-0 h-5 w-5 border-[3px]"></View>
+            </View>
 
             <CustomInput icon iconName='vcard' control={control} errors={errors} placeholder={form.inputs.idnp} name="id_passport" isDisabled />
             <CustomInput icon iconName='phone-alt' iconSize={20} control={control} errors={errors} placeholder={form.inputs.phone} name="phone" isDisabled />
@@ -80,7 +85,7 @@ export const Cabinet: FC = () => {
             <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.name} name="name" />
             <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.surname} name="surname" />
 
-            <SubmitButton className='mt-4' title={form.buttons.update} onPress={handleSubmit(updateData)} />
+            <SubmitButton className='mt-6' title={form.buttons.update} onPress={handleSubmit(updateData)} fullWidth />
 
         </Container>
 

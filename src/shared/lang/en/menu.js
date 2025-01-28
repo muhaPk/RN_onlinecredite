@@ -6,7 +6,10 @@ export const menu = {
     passport: 'Passport',
     map: 'Map',
     routes: 'Routes',
+    language: 'Language',
     login: 'Login',
     logout: 'Logout',
-    iazik: 'Language',
+    language: 'Language',
+    ru: 'Russian',
+    en: 'English',
 }

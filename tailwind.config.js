@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'blue': '#29aae2',
+        'black': '#333333',
       },
       fontFamily: {
         display: 'Oswald, ui-serif', // Adds a new `font-display` class

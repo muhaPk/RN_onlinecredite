@@ -5,7 +5,7 @@ import { ImageButton } from 'shared/ui/ImageButton/ImageButton';
 import { useMutation } from '@apollo/client';
 import { UPLOAD_USER_PASSPORT } from 'shared/api/graphql/mutations/user';
 import { useGetId } from 'shared/hooks/useGetId';
-
+import { Lang } from 'shared/lang';
 import { ReactNativeFile } from 'shared/utils/ReactNativeFile';
 
 

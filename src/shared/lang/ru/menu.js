@@ -1,14 +1,17 @@
 export const menu = {
 
-    home: 'Главгая',
+    home: 'Главная',
     registration: 'Регистрация',
     contacts: 'Контакты',
     cabinet: 'Кабинет',
     passport: 'Пасспорт',
     map: 'Карта',
     routes: 'Маршруты',
+    language: 'Язык',
     login: 'Войти',
     logout: 'Выйти',
-    iazik: 'Язык'
+    language: 'Язык',
+    ru: 'Русский',
+    en: 'Английский',
 
 }

@@ -1,7 +1,7 @@
 export const form = {
 
     buttons: {
-        fill: 'Completati',
+        fill: 'Перейти',
         registration: 'Регистрация',
         login: 'Войти',
         update: 'Обновить',
@@ -11,7 +11,7 @@ export const form = {
     inputs: {
         idnp: 'Иднп',
         email: 'E-mail',
-        phone: 'Телефон',
+        phone: 'Ваш номер телефона',
         code: 'Код',
         name: 'Имя',
         surname: 'Фамилия',

@@ -7,8 +7,6 @@ export const useAuth = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [isVerified, setIsVerified] = useState<boolean>(false);
 
-  console.log('useAuth: id [' + userId + '] is - ' + isVerified)
-
   const [triggerQuery, { loading }] = useLazyQuery(CHECK_IS_VERIFIED, {
     onCompleted: (data) => {
       setIsVerified(data?.user?.isVerified || false);

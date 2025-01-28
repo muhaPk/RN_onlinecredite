@@ -11,6 +11,8 @@ import FontAwesome6Icons from 'react-native-vector-icons/FontAwesome6'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import EntypoIcons from 'react-native-vector-icons/Entypo'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { T2 } from 'shared/ui/CustomText/CustomText';
+import {LanguageSwitcher} from 'shared/lang/ui/LanguageSwitcher';
 
 interface IconWrapperProps {
     IconComponent: React.ComponentType<{ name: string; size: number; color: string }>;
@@ -32,9 +34,14 @@ const IconWrapper: FC<IconWrapperProps> = ({ IconComponent, name, isActive }) =>
 
 export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
 
+    
     const isDrawerOpen = useDrawerStatus();
 
     const [isDrawerVerified, setIsDrawerVerified] = useState<boolean>(false);
+    const [langOpen, setLangOpen] = useState<boolean>(true);
+
+    const closeLangOpen = () => setLangOpen(false)
+
 
     const { menu } = Lang()
     const { handleLogout } = useLogoutHandler();
@@ -73,112 +80,138 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
                 <Ionicons name="logo-microsoft" size={22} color="white" />
             </View>
 
-            
-            <DrawerContentScrollView {...props} className="flex-1">
-            
-                <DrawerItem
-                    key={`Home-${isDrawerVerified}`}
-                    focused={activeRouteName === 'Home'}
-                    labelStyle={getLabelStyle(activeRouteName, 'Home')}
-                    icon={() => <IconWrapper IconComponent={FontAwesomeIcons} name="home" isActive={activeRouteName === 'Home'} />}
-                    label={menu.home}
-                    onPress={() => navigation.navigate('BottomTabs', { screen: 'Home' })}
-                />
 
-                {
-                    !isDrawerVerified && 
-                    <DrawerItem
-                        key={`Registration-${isDrawerVerified}`}
-                        focused={activeRouteName === 'Registration'}
-                        labelStyle={getLabelStyle(activeRouteName, 'Registration')}
-                        icon={() => <IconWrapper IconComponent={MaterialIcons} name="app-registration" isActive={activeRouteName === 'Registration'} />}
-                        label={menu.registration}
-                        onPress={() => props.navigation.navigate('Registration')}
-                    />
-                }
-
-                {
-                    !isDrawerVerified && 
-                    <DrawerItem
-                        key={`Login-${isDrawerVerified}`}
-                        focused={activeRouteName === 'Login'}
-                        labelStyle={getLabelStyle(activeRouteName, 'Login')}
-                        icon={() => <IconWrapper IconComponent={EntypoIcons} name="login" isActive={activeRouteName === 'Login'} />}
-                        label={menu.login}
-                        onPress={() => props.navigation.navigate('Login')}
-                    />
-                }
-
-
-                {
-                    isDrawerVerified && 
-                    <DrawerItem
-                        key={`Cabinet-${isDrawerVerified}`}
-                        focused={activeRouteName === 'Cabinet'}
-                        labelStyle={getLabelStyle(activeRouteName, 'Cabinet')}
-                        icon={() => <IconWrapper IconComponent={MaterialIcons} name="account-circle" isActive={activeRouteName === 'Cabinet'} />}
-                        label={menu.cabinet}
-                        onPress={() => props.navigation.navigate('BottomTabs', { screen: 'Cabinet' })}
-                    />
-                }
-
-                {
-                    isDrawerVerified && 
-                    <DrawerItem
-                    key={`Passport-${isDrawerVerified}`}
-                        focused={activeRouteName === 'Passport'}
-                        labelStyle={getLabelStyle(activeRouteName, 'Passport')}
-                        icon={() => <IconWrapper IconComponent={MaterialCommunityIcons} name="information" isActive={activeRouteName === 'Passport'} />}
-                        label={menu.passport}
-                        onPress={() => props.navigation.navigate('Passport')}
-                    />
-                }
-
-
-                <DrawerItem
-                    focused={activeRouteName === 'Contacts'}
-                    labelStyle={getLabelStyle(activeRouteName, 'Contacts')}
-                    icon={() => <IconWrapper IconComponent={MaterialCommunityIcons} name="information" isActive={activeRouteName === 'Contacts'} />}
-                    label={menu.contacts}
-                    onPress={() => props.navigation.navigate('Contacts')}
-                />
-
-                
-                <DrawerItem
-                    focused={activeRouteName === 'Map'}
-                    labelStyle={getLabelStyle(activeRouteName, 'Map')}
-                    icon={() => <IconWrapper IconComponent={FontAwesomeIcons} name="map-marker" isActive={activeRouteName === 'Map'} />}
-                    label={menu.map}
-                    onPress={() => props.navigation.navigate('Map')}
-                />
-            
-
-            
-                <DrawerItem
-                    focused={activeRouteName === 'Routes'}
-                    labelStyle={getLabelStyle(activeRouteName, 'Routes')}
-                    icon={() => <IconWrapper IconComponent={FontAwesome6Icons} name="route" isActive={activeRouteName === 'Routes'} />}
-                    label={menu.routes}
-                    onPress={() => props.navigation.navigate('Routes')}
-                />
-                
-
-                <View className='flex-grow'></View>
-
-            </DrawerContentScrollView>
 
             {
-                    isDrawerVerified && 
-                    <DrawerItem
-                        labelStyle={getLabelStyle(activeRouteName, 'Logout')}
-                        icon={() => <IconWrapper IconComponent={MaterialCommunityIcons} name="logout" isActive={activeRouteName === 'Logout'} />}
-                        label={menu.logout}
-                        onPress={() => {
-                            setIsDrawerVerified(false)
-                            handleLogout()
-                        }}
-                    />
-                }
+                langOpen 
+
+                ? 
+
+                <LanguageSwitcher update={closeLangOpen} />
+
+                :
+
+                <View className="flex-1">
+            
+                    <DrawerContentScrollView {...props} className="flex-1">
+                    
+                        <DrawerItem
+                            key={`Home-${isDrawerVerified}`}
+                            focused={activeRouteName === 'Home'}
+                            labelStyle={getLabelStyle(activeRouteName, 'Home')}
+                            icon={() => <IconWrapper IconComponent={FontAwesomeIcons} name="home" isActive={activeRouteName === 'Home'} />}
+                            label={menu.home}
+                            onPress={() => navigation.navigate('BottomTabs', { screen: 'Home' })}
+                        />
+
+                        {
+                            !isDrawerVerified && 
+                            <DrawerItem
+                                key={`Registration-${isDrawerVerified}`}
+                                focused={activeRouteName === 'Registration'}
+                                labelStyle={getLabelStyle(activeRouteName, 'Registration')}
+                                icon={() => <IconWrapper IconComponent={MaterialIcons} name="app-registration" isActive={activeRouteName === 'Registration'} />}
+                                label={menu.registration}
+                                onPress={() => props.navigation.navigate('Registration')}
+                            />
+                        }
+
+                        {
+                            !isDrawerVerified && 
+                            <DrawerItem
+                                key={`Login-${isDrawerVerified}`}
+                                focused={activeRouteName === 'Login'}
+                                labelStyle={getLabelStyle(activeRouteName, 'Login')}
+                                icon={() => <IconWrapper IconComponent={EntypoIcons} name="login" isActive={activeRouteName === 'Login'} />}
+                                label={menu.login}
+                                onPress={() => props.navigation.navigate('Login')}
+                            />
+                        }
+
+
+                        {
+                            isDrawerVerified && 
+                            <DrawerItem
+                                key={`Cabinet-${isDrawerVerified}`}
+                                focused={activeRouteName === 'Cabinet'}
+                                labelStyle={getLabelStyle(activeRouteName, 'Cabinet')}
+                                icon={() => <IconWrapper IconComponent={MaterialIcons} name="account-circle" isActive={activeRouteName === 'Cabinet'} />}
+                                label={menu.cabinet}
+                                onPress={() => props.navigation.navigate('BottomTabs', { screen: 'Cabinet' })}
+                            />
+                        }
+
+                        {
+                            isDrawerVerified && 
+                            <DrawerItem
+                            key={`Passport-${isDrawerVerified}`}
+                                focused={activeRouteName === 'Passport'}
+                                labelStyle={getLabelStyle(activeRouteName, 'Passport')}
+                                icon={() => <IconWrapper IconComponent={MaterialCommunityIcons} name="information" isActive={activeRouteName === 'Passport'} />}
+                                label={menu.passport}
+                                onPress={() => props.navigation.navigate('Passport')}
+                            />
+                        }
+
+
+                        <DrawerItem
+                            focused={activeRouteName === 'Contacts'}
+                            labelStyle={getLabelStyle(activeRouteName, 'Contacts')}
+                            icon={() => <IconWrapper IconComponent={MaterialCommunityIcons} name="information" isActive={activeRouteName === 'Contacts'} />}
+                            label={menu.contacts}
+                            onPress={() => props.navigation.navigate('Contacts')}
+                        />
+
+                        
+                        <DrawerItem
+                            focused={activeRouteName === 'Map'}
+                            labelStyle={getLabelStyle(activeRouteName, 'Map')}
+                            icon={() => <IconWrapper IconComponent={FontAwesomeIcons} name="map-marker" isActive={activeRouteName === 'Map'} />}
+                            label={menu.map}
+                            onPress={() => props.navigation.navigate('Map')}
+                        />
+                    
+
+                    
+                        <DrawerItem
+                            focused={activeRouteName === 'Routes'}
+                            labelStyle={getLabelStyle(activeRouteName, 'Routes')}
+                            icon={() => <IconWrapper IconComponent={MaterialIcons} name="route" isActive={activeRouteName === 'Routes'} />}
+                            label={menu.routes}
+                            onPress={() => props.navigation.navigate('Routes')}
+                        />
+                    
+
+                        <DrawerItem
+                            labelStyle={getLabelStyle(activeRouteName, 'Language')}
+                            icon={() => <IconWrapper IconComponent={MaterialIcons} name="language" isActive={activeRouteName === 'Language'} />}
+                            label={menu.language}
+                            onPress={() => setLangOpen(true)}
+                        />
+                        
+
+                        <View className='flex-grow'></View>
+
+                        
+                    </DrawerContentScrollView>
+
+
+                    {
+                        isDrawerVerified && 
+                        <DrawerItem
+                            labelStyle={getLabelStyle(activeRouteName, 'Logout')}
+                            icon={() => <IconWrapper IconComponent={MaterialCommunityIcons} name="logout" isActive={activeRouteName === 'Logout'} />}
+                            label={menu.logout}
+                            onPress={() => {
+                                setIsDrawerVerified(false)
+                                handleLogout()
+                            }}
+                        />
+                    }
+
+                </View>
+            }
+
 
         </View>
 
