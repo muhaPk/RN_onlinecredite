@@ -8,7 +8,7 @@ module.exports = {
         'black': '#333333',
       },
       fontFamily: {
-        display: 'Oswald, ui-serif', // Adds a new `font-display` class
+        sans: ['Oswald', 'sans-serif'],
       },
       height: {
         'screen-minus-header': 'calc(100vh - 60px)', // Adjust 60px to your header height

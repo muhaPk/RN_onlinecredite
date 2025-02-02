@@ -56,6 +56,7 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
           }
         }
         if (isDrawerOpen === 'open') fetchUserId()
+        if (isDrawerOpen === 'closed') closeLangOpen() // close language switcher
 
       }, [isDrawerOpen])
 

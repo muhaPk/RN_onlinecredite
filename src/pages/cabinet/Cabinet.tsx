@@ -9,55 +9,52 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_USER } from 'shared/api/graphql/queries/user';
 import { UPDATE_USER } from 'shared/api/graphql/mutations/user';
 import { useGetId } from 'shared/hooks/useGetId';
-import { useAuth } from 'shared/hooks/useAuth';
 import { View, Image } from 'react-native';
 
 export const Cabinet: FC = () => {
 
-    const { form, cabinet } = Lang()
-
-    const userId = useGetId()
-    const { isVerified } = useAuth();
-
-    console.log('Cabinet: is - ' + isVerified)
+    const { control, handleSubmit, setValue, watch, formState: { errors, dirtyFields }, reset } = useForm({
+      defaultValues: {
+        id_passport: '',
+        phone: '',
+        email: '',
+        name: '',
+        surname: '',
+      }
+    });
 
     const [updateUser] = useMutation(UPDATE_USER);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    const { form, cabinet } = Lang()
+    const userId = useGetId()
 
     const {data, loading, error} = useQuery(GET_USER, { variables: { id: userId }, skip: !userId, })
 
-    // if (loading) return <T>Loading...</T>;
-    // if (error) return <T>Error: {error.message}</T>;
+    // Update form values when data is fetched
+    useEffect(() => {
+      if (data?.user) {
+        setValue('id_passport', data.user.idPassport);
+        setValue('phone', data.user.phone);
+        setValue('email', data.user.email);
+        setValue('name', data.user.name);
+        setValue('surname', data.user.surname);
+      }
+    }, [data, setValue]);
 
+      // Watch for changes in the form fields
+      const watchedName = watch('name');
+      const watchedSurname = watch('surname');
 
-
-    const { control, handleSubmit, formState: { errors }, reset } = useForm({
-        defaultValues: {
-          id_passport: '',
-          phone: '',
-          email: '',
-          name: '',
-          surname: '',
-        }
-      });
-    
-      // Update form values when data is fetched
       useEffect(() => {
-        if (data?.user) {
-          reset({
-            id_passport: data.user.idPassport,
-            phone: data.user.phone,
-            email: data.user.email,
-            name: data.user.name,
-            surname: data.user.surname,
-          });
-        }
-      }, [data, reset]);
+        setIsButtonDisabled(false);
+      }, [watchedName, watchedSurname]);
 
-
-    const updateData = async (data: any) => {
-        const { id_passport, email, phone, name, surname } = data;
+    const updateData = async (formData: any) => {
+        const { name, surname } = formData;
         try {
-            await updateUser({ variables: { id: userId, id_passport, email, phone, name, surname } });
+            await updateUser({ variables: { id: userId, name, surname } });
+            setIsButtonDisabled(true); // Disable the button after updating
             
         } catch (error: any) {
             error && console.log('error ' + JSON.stringify(error, null, 2))
@@ -85,7 +82,7 @@ export const Cabinet: FC = () => {
             <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.name} name="name" />
             <CustomInput icon iconName='user' control={control} errors={errors} placeholder={form.inputs.surname} name="surname" />
 
-            <SubmitButton className='mt-6' title={form.buttons.update} onPress={handleSubmit(updateData)} fullWidth />
+            <SubmitButton className='mt-6' title={form.buttons.update} onPress={handleSubmit(updateData)} fullWidth isDisabled={isButtonDisabled} />
 
         </Container>
 

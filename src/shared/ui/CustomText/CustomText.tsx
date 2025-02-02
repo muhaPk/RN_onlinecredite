@@ -26,7 +26,7 @@ export const CustomText = ({ children, type = 'h1', ...rest }: Props) => {
 export const H1 = ({ children, ...rest }: Props) => {
     return (
 
-        <Text className='font-display text-[#333] font-bold text-xl' {...rest}>{children}</Text>
+        <Text className='font-display text-blue font-bold text-xl' {...rest}>{children}</Text>
 
     )
 }
@@ -42,7 +42,7 @@ export const H2 = ({ children, ...rest }: Props) => {
 export const H3 = ({ children, ...rest }: Props) => {
     return (
 
-        <Text className='font-display text-[#333] font-bold text-base' {...rest}>{children}</Text>
+        <Text className='font-display text-blue font-bold text-base' {...rest}>{children}</Text>
 
     )
 }
@@ -67,7 +67,7 @@ export const T2 = ({ children, ...rest }: Props) => {
 
         return (
             
-            <View className='w-2/12 mx-auto border-b-2 mb-8 mt-6 border-b-black' {...rest}></View>
+            <View className='w-2/12 mx-auto border-b-2 mb-8 mt-6 border-b-blue' {...rest}></View>
 
         )
 

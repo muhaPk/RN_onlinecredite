@@ -5,7 +5,8 @@
         "alias": {
             "entities": "./src/entities",
             "pages": "./src/pages",
-            "shared": "./src/shared"
+            "shared": "./src/shared",
+            "store": "./src/store"
         }
       }]
     ]

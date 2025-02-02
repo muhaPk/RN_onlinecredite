@@ -1,26 +1,26 @@
 import React, {FC} from 'react';
 import { Text, View, Pressable } from 'react-native';
-import { useReactiveVar } from '@apollo/client';
-import { languageVar } from '../model/languageVar';
 import Ru from 'shared/assets/vector/ru.svg'
 import Us from 'shared/assets/vector/us.svg'
 import { T2 } from 'shared/ui/CustomText/CustomText';
 import { Lang } from 'shared/lang';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome'
 
+import { useLanguageStore } from 'store/languageStore';
+
 interface LanguageSwitcherProps {
     update: () => void;
   }
 
-export const LanguageSwitcher: FC<LanguageSwitcherProps>  = ({update}) => {
+export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({update}) => {
 
-  const currentLanguage = useReactiveVar(languageVar);
+  const language = useLanguageStore(state => state.language)
+  const setLanguage = useLanguageStore(state => state.setLanguage)
 
-  const strings = Lang();
-  const { menu } = strings;
+  const { menu } = Lang()
 
   const switchLanguage = (lang: string) => {
-    languageVar(lang)
+    setLanguage(lang)
     update()
   }
   
@@ -32,7 +32,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps>  = ({update}) => {
             <Ru className='mx-2' />
             <T2 className='ml-2'>{menu.ru}</T2>
             {
-                currentLanguage === 'ru' &&
+                language === 'ru' &&
                     <View className='ml-auto mr-2'>
                         <FontAwesomeIcons name='check' color='#333' />
                     </View>
@@ -43,7 +43,7 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps>  = ({update}) => {
             <Us className='mx-2' />
             <T2 className='ml-2'>{menu.en}</T2>
             {
-                currentLanguage === 'en' &&
+                language === 'en' &&
                     <View className='ml-auto mr-2'>
                         <FontAwesomeIcons name='check' color='#333' />
                     </View>

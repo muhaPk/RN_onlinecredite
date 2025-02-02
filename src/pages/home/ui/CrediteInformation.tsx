@@ -13,7 +13,7 @@ import { Lang } from 'shared/lang';
 
         <Container className='my-10'>
 
-          <H3 className='text-center mb-6'>{information.title}</H3>
+          <H3 className='text-center mb-6 color-[#333]'>{information.title}</H3>
           <T className='text-center mb-6'>{information.description}</T>
           <Ul>
               <Li className='mb-4'>{information.point}</Li>

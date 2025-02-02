@@ -110,8 +110,7 @@ export const Login: FC = () => {
                         />
                     </View>
 
-                    <H1 className='mx-auto mt-6'>{login.vhod}</H1>
-                    <Underline className='mb-10' />
+                    <H1 className='mx-auto mt-6 mb-4'>{login.vhod}</H1>
 
                     {/* <T2 className='mb-3 text-gray-500'>{form.description.phone}</T2> */}
 

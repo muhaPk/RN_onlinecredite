@@ -17,13 +17,11 @@ import { BottomTabs } from 'shared/ui/layout/BottomTabs';
 import { useAuth } from 'shared/hooks/useAuth';
 
 import { NavigationContainerRef } from '@react-navigation/native';
-import { useLanguageEffect } from 'shared/hooks/useLanguageEffect';
 
 const Drawer = createDrawerNavigator();
 
 
 export default function App() {
-  useLanguageEffect()
 
   return (
         <>
