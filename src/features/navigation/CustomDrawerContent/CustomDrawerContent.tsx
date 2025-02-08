@@ -10,9 +10,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome6Icons from 'react-native-vector-icons/FontAwesome6'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import EntypoIcons from 'react-native-vector-icons/Entypo'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { T2 } from 'shared/ui/CustomText/CustomText';
 import {LanguageSwitcher} from 'shared/lang/ui/LanguageSwitcher';
+import { useFetchUserId } from 'shared/hooks/useFetchUserId';
 
 interface IconWrapperProps {
     IconComponent: React.ComponentType<{ name: string; size: number; color: string }>;
@@ -46,19 +45,7 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
     const { menu } = Lang()
     const { handleLogout } = useLogoutHandler();
 
-    useEffect(() => {
-        const fetchUserId = async () => {
-          try {
-            const storedUserId = await AsyncStorage.getItem("userId");
-            setIsDrawerVerified(!!storedUserId)
-          } catch (err) {
-            console.error("useAuth: Error retrieving userId from AsyncStorage:", err);
-          }
-        }
-        if (isDrawerOpen === 'open') fetchUserId()
-        if (isDrawerOpen === 'closed') closeLangOpen() // close language switcher
-
-      }, [isDrawerOpen])
+    useFetchUserId(isDrawerOpen, setIsDrawerVerified, closeLangOpen)
 
 
     const { state, navigation } = props;
