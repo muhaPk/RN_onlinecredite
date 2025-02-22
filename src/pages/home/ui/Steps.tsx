@@ -31,7 +31,7 @@ import { Lang } from 'shared/lang';
                 </View>
             </View>
 
-            <View className='h-20 w-0 ml-9 -mt-20 mb-4 border-dotted border-l-2 border-sky-500'></View>
+            <View className='h-20 w-0 ml-9 -mt-20 mb-4 border-solid border-l-2 border-sky-200'></View>
 
             <View className='flex flex-row justify-between mb-8'>
                 <View className='p-3 text-center inline-flex items-center justify-center w-14 h-14 mb-5 mx-2 rounded-full bg-[#29aae2]'>
@@ -44,7 +44,7 @@ import { Lang } from 'shared/lang';
                 </View>
             </View>
 
-            <View className='h-20 w-0 ml-9 -mt-14 mb-4 border-dotted border-l-2 border-sky-500'></View>
+            <View className='h-20 w-0 ml-9 -mt-14 mb-4 border-solid border-l-2 border-sky-200'></View>
 
             <View className='flex flex-row justify-between mb-8'>
                 <View className='p-3 text-center inline-flex items-center justify-center w-14 h-14 mb-5 mx-2 rounded-full bg-[#29aae2]'>
