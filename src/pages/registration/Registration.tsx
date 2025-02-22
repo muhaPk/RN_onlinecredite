@@ -7,13 +7,17 @@ import { H1, Underline } from 'shared/ui/CustomText/CustomText';
 import { Container } from 'shared/ui/Container/Container';
 import { Lang } from 'shared/lang';
 import { CREATE_USER } from 'shared/api/graphql/mutations/user';
-import { useMutation } from '@apollo/client';
+import { CHECK_IS_PHONE_UNIQUE } from 'shared/api/graphql/queries/user';
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { useNavigate } from "shared/hooks/useNavigate";
 
 export const Registration: FC = () => {
 
     const { form, registration } = Lang()
+    const { navigateToPage } = useNavigate();
 
     const [createUser] = useMutation(CREATE_USER);
+    const [checkIsPhoneUnique] = useLazyQuery(CHECK_IS_PHONE_UNIQUE);
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({
         defaultValues: {
@@ -25,13 +29,25 @@ export const Registration: FC = () => {
         }
     });
 
+    const checkPhoneUniqueness = async (phone: string) => {
+        const result = await checkIsPhoneUnique({ variables: { phone } });
+        return result.data.user === null;
+    }
 
     const onSubmit = async (data: any) => {
         const { id_passport, email, phone, name, surname } = data;
 
+        // const isUnique = await checkPhoneUniqueness(phone);
+        // console.log('isUnique: ' + isUnique)
+        // if (!isUnique) {
+        //     console.log('Phone number is already in use.');
+        //     return;
+        // }
+
         try {
             await createUser({ variables: { id_passport, email, phone, name, surname } });
             reset({ id_passport: '', phone: '', name: '', surname: '' })
+            navigateToPage("Login");
             
         } catch (error: any) {
             error && console.log('error ' + JSON.stringify(error, null, 2))

@@ -31,3 +31,10 @@ export const GET_ALL_USERS = gql`
   }
 `;
 
+export const CHECK_IS_PHONE_UNIQUE = gql`
+query ChekIsPhoneUnique($phone: String) {
+  user(phone: $phone) {
+    id
+  }
+}
+`;

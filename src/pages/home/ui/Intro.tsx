@@ -18,7 +18,7 @@ export const Intro: FC = () => {
 
         <CustomText type='h1' className='text-center text-2xl my-4 text-white'>{home.creditZa} <Text className='text-[#29aae2] bg-white'>{home.minut}</Text></CustomText>
         <T className='text-center mb-4 text-white'>{home.zapolnite}</T>
-        <LinkButton page='Registration' title={form.buttons.fill} colorStyle='light' />
+        <LinkButton page='Login' title={form.buttons.fill} colorStyle='light' />
 
       </Container>
 

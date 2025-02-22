@@ -10,16 +10,16 @@ import { Container } from 'shared/ui/Container/Container';
 import { Lang } from 'shared/lang';
 import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SEND_OTP, VERIFY_OTP } from 'shared/api/graphql/mutations/user';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RootStackParamList } from 'shared/ui/layout/rootStackParamList';
+import { SEND_OTP, VERIFY_OTP, GOOGLE_AUTH_MUTATION } from 'shared/api/graphql/mutations/user';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { signInWithGoogle } from 'shared/api/google';
+import { useNavigate } from "shared/hooks/useNavigate";
 
 
 export const Login: FC = () => {
+    const [googleAuth] = useMutation(GOOGLE_AUTH_MUTATION);
 
-    const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
+    const { navigateToPage } = useNavigate();
 
 
     const [isOtpSent, setIsOtpSent] = useState(false);
@@ -68,7 +68,7 @@ export const Login: FC = () => {
             reset({ code: "" })
             setIsOtpSent(false);
 
-            navigation.navigate('BottomTabs', { screen: 'Home' }); // wrap to hook in feature
+            navigateToPage("Home");
 
 
         } catch (error: any) {
@@ -87,6 +87,25 @@ export const Login: FC = () => {
     }
     
 
+    const handleGoogleLogin = async () => {
+        const idToken = await signInWithGoogle();
+
+        if (!idToken) return;
+    
+        try {
+          const { data } = await googleAuth({ variables: { token: idToken } });
+          console.log('Login Successful', `Token: ${data.googleAuth}`)
+
+          if (data?.googleAuth) {
+            await AsyncStorage.setItem('accessToken', data.googleAuth)
+          }
+
+        } catch (error) {
+          console.error(error);
+          console.log('Login Failed', 'Something went wrong')
+        }
+      };
+
 
     return (
 
@@ -99,7 +118,7 @@ export const Login: FC = () => {
 
         {
             !isOtpSent ? (
-                // login / register
+                // login
                 <>
         
                     <View className='flex-row justify-center'>
@@ -136,6 +155,9 @@ export const Login: FC = () => {
                         />
             
                     <SubmitButton className='mt-4' title={form.buttons.login} onPress={handleSubmit(handleSendOtp)} fullWidth />
+
+                    <SubmitButton className='mt-4' title={form.buttons.signInWithGoogle} onPress={handleGoogleLogin} fullWidth />
+                    
                     
 
                     <LinkButton className='mt-2' page='Registration' title={form.buttons.registration} colorStyle='light' />

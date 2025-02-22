@@ -46,3 +46,9 @@ export const UPLOAD_USER_PASSPORT = gql`
     uploadUserPassport(id: $id, file: $file)
   }
 `;
+
+export const GOOGLE_AUTH_MUTATION = gql`
+  mutation GoogleAuth($token: String!) {
+    googleAuth(token: $token)
+  }
+`;

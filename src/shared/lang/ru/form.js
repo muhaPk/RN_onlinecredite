@@ -1,3 +1,5 @@
+import { signInWithGoogle } from "shared/api/google";
+
 export const form = {
 
     buttons: {
@@ -6,6 +8,7 @@ export const form = {
         login: 'Войти',
         update: 'Обновить',
         verify: 'Верификация',
+        signInWithGoogle: 'Войти через Google',
     },
 
     inputs: {
