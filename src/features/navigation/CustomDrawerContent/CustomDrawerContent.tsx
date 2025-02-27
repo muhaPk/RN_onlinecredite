@@ -161,13 +161,13 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
                     
 
                     
-                        <DrawerItem
+                        {/* <DrawerItem
                             focused={activeRouteName === 'Routes'}
                             labelStyle={getLabelStyle(activeRouteName, 'Routes')}
                             icon={() => <IconWrapper IconComponent={MaterialIcons} name="route" isActive={activeRouteName === 'Routes'} />}
                             label={menu.routes}
                             onPress={() => props.navigation.navigate('Routes')}
-                        />
+                        /> */}
                     
 
                         <DrawerItem
