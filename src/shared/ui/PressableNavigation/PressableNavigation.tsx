@@ -9,23 +9,27 @@ type Props = {
     page: keyof RootStackParamList;
   };
 
+
+const bottomTabPages = [ 'Home', 'Cabinet' ] // Pages in bottom tabs
+
 export const PressableNavigation: FC<Props> = ({children, page}) => {
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>()
     const { isVerified } = useAuth()
-    
-    const targetPage =
-        (page === 'Home' || page === 'Cabinet') && isVerified ? 'BottomTabs' : page
-    
-    const targetParams =
-        (page === 'Home' || page === 'Cabinet') && isVerified
-        ? { screen: page }
-        : undefined;
 
+    const isBottomTabPage = bottomTabPages.includes(page) && isVerified;
+    
+    if (isBottomTabPage) {
+        return (
+            <Pressable onPress={() => navigation.navigate('BottomTabs', { screen: page })}>
+                {children}
+            </Pressable>
+        );
+    }
 
     return (
-        <Pressable onPress={() => navigation.navigate(targetPage, targetParams)} >
+        <Pressable onPress={() => navigation.navigate(page)}>
             {children}
         </Pressable>
-    )
+    );
 }

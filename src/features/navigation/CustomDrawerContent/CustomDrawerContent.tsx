@@ -7,7 +7,6 @@ import { useDrawerStatus } from '@react-navigation/drawer';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import FontAwesome6Icons from 'react-native-vector-icons/FontAwesome6'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import EntypoIcons from 'react-native-vector-icons/Entypo'
 import {LanguageSwitcher} from 'shared/lang/ui/LanguageSwitcher';
@@ -157,6 +156,14 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
                             icon={() => <IconWrapper IconComponent={FontAwesomeIcons} name="map-marker" isActive={activeRouteName === 'Map'} />}
                             label={menu.map}
                             onPress={() => props.navigation.navigate('Map')}
+                        />
+                        
+                        <DrawerItem
+                            focused={activeRouteName === 'Speach'}
+                            labelStyle={getLabelStyle(activeRouteName, 'Speach')}
+                            icon={() => <IconWrapper IconComponent={FontAwesomeIcons} name="map-marker" isActive={activeRouteName === 'Speach'} />}
+                            label={'Speach'}
+                            onPress={() => props.navigation.navigate('Speach')}
                         />
                     
 

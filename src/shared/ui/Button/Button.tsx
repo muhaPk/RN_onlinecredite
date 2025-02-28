@@ -7,13 +7,14 @@ type Props = {
     colorStyle?: 'dark' | 'light'
     className?: string
     onPress?: () => void
+    isDisabled?: boolean
 }
 
-export const Button = ({title, colorStyle = 'dark', onPress, ...rest}: Props) => {
+export const Button = ({title, colorStyle = 'dark', onPress, isDisabled = false, ...rest}: Props) => {
     
     return (
     
-        <TouchableOpacity className={viewStyleVariants[colorStyle]} onPress={onPress} {...rest}>
+        <TouchableOpacity className={`${viewStyleVariants[colorStyle]} ${isDisabled && 'opacity-75'}`} onPress={onPress} disabled={isDisabled} {...rest}>
 
             <Text className={textStyleVariants[colorStyle]}>{title}</Text>
 

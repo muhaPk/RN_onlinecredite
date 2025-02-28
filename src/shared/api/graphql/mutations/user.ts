@@ -52,3 +52,13 @@ export const GOOGLE_AUTH_MUTATION = gql`
     googleAuth(token: $token)
   }
 `;
+
+
+export const TRANSCRIBE_MUTATION = gql`
+  mutation TranscribeSpeech($text: String!) {
+    transcribeSpeech(text: $text) {
+      correctedText
+      feedback
+    }
+  }
+`;

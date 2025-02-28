@@ -11,6 +11,7 @@ import { Passport } from 'pages/passport/Passport';
 import { Map } from 'pages/map/Map';
 import { Routes } from 'pages/routes/Routes';
 import { Login } from 'pages/login/Login';
+import { Speach } from 'pages/speach/Speach';
 import {CustomDrawerContent} from './src/features/navigation/CustomDrawerContent/CustomDrawerContent'
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { BottomTabs } from 'shared/ui/layout/BottomTabs';
@@ -87,6 +88,10 @@ const Navigator = () => {
 
           <Drawer.Screen name="Map">
             {() => (<MainLayout checkProtected={false}><Map /></MainLayout>)}
+          </Drawer.Screen>
+
+          <Drawer.Screen name="Speach">
+            {() => (<MainLayout checkProtected={false}><Speach /></MainLayout>)}
           </Drawer.Screen>
 
           <Drawer.Screen name="Routes">
