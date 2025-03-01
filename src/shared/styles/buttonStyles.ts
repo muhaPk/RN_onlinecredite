@@ -3,9 +3,9 @@ export const baseTextStyle = 'font-bold';
 
 export const viewStyleVariants = {
     light: `${baseViewStyle} bg-white`,
-    dark: `${baseViewStyle} bg-[#29aae2]`
+    dark: `${baseViewStyle} bg-[#333]`
 };
 export const textStyleVariants = {
-    light: `${baseTextStyle} text-[#29aae2]`,
+    light: `${baseTextStyle} text-[#333]`,
     dark: `${baseTextStyle} text-white`
 };

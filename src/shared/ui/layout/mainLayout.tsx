@@ -1,8 +1,8 @@
 import React, {FC, ReactNode} from 'react';
-import {View, ScrollView} from 'react-native'
+import {View, ScrollView, SafeAreaView} from 'react-native'
 import { Header } from './header';
 import { useAuthCheckProtected } from 'shared/hooks/useAuthCheckProtected';
-
+import { useRoute } from '@react-navigation/native';
 
 type Props = {
   children: ReactNode
@@ -11,16 +11,18 @@ type Props = {
 
 export const MainLayout: FC<Props> = ({children, checkProtected}: Props) => {
 
+  const route = useRoute();
   checkProtected && useAuthCheckProtected()
 
     return (
 
-      <View className='flex-1'>
+      <SafeAreaView className='flex-1'>
 
+          {/* {route.name !== 'Login' && <Header />} */}
           <Header />
-          <ScrollView className='flex-1 bg-white'>{children}</ScrollView>
+          <ScrollView className='flex-1 bg-white' contentContainerStyle={{ flexGrow: 1 }}>{children}</ScrollView>
 
-      </View>
+      </SafeAreaView>
 
 
     );

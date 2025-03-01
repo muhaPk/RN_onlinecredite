@@ -88,7 +88,7 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
                             labelStyle={getLabelStyle(activeRouteName, 'Home')}
                             icon={() => <IconWrapper IconComponent={FontAwesomeIcons} name="home" isActive={activeRouteName === 'Home'} />}
                             label={menu.home}
-                            onPress={() => navigation.navigate('BottomTabs', { screen: 'Home' })}
+                            onPress={() => navigation.navigate('BottomTabs', { screen: 'Home' })} // if auth and no auth controll bottom tabs
                         />
 
                         {
@@ -168,13 +168,13 @@ export const CustomDrawerContent: FC<DrawerContentComponentProps> = (props) => {
                     
 
                     
-                        <DrawerItem
+                        {/* <DrawerItem
                             focused={activeRouteName === 'Routes'}
                             labelStyle={getLabelStyle(activeRouteName, 'Routes')}
                             icon={() => <IconWrapper IconComponent={MaterialIcons} name="route" isActive={activeRouteName === 'Routes'} />}
                             label={menu.routes}
                             onPress={() => props.navigation.navigate('Routes')}
-                        />
+                        /> */}
                     
 
                         <DrawerItem

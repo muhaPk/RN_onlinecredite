@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Text, View } from 'react-native'
 import Voice from "@react-native-voice/voice";
 import { TRANSCRIBE_MUTATION } from 'shared/api/graphql/mutations/user';
@@ -13,6 +13,22 @@ export const Speach: FC = () => {
     const [feedback, setFeedback] = useState("");
 
     const [transcribeSpeech, { loading }] = useMutation(TRANSCRIBE_MUTATION);
+
+
+    useEffect(() => {
+      // Add event listeners when component mounts
+      Voice.onSpeechResults = (event) => {
+          if (event.value) {
+              setTranscription(event.value[0]);
+          }
+      };
+
+      // Cleanup event listeners when component unmounts
+      return () => {
+          Voice.destroy().then(Voice.removeAllListeners);
+      };
+  }, []);
+
 
     const startRecording = async () => {
       try {
